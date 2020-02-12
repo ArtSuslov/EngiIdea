@@ -7,11 +7,11 @@
 }
 
 .App-header span {
+  text-align: center;
   font-family: Seaweed Script;
   font-size: 30px;
   letter-spacing: 0.51em;
   color: #FF8A00;
-  /*margin-bottom: 15px;*/
 }
 
 .App-logo {
