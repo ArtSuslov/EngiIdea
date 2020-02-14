@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Checkbox from './Checkbox';
+import { connect } from 'react-redux';
+import { getFilters } from '../actions/filterActions';
 
 class Filter extends Component {
     constructor(props){
@@ -14,23 +16,49 @@ class Filter extends Component {
     handleCheckboxChange = event => {
         console.log(event.target);
     }
-  
+    
+    componentDidMount() {
+        this.props.getFilters();
+    }
+    renderFilters() {
+        const { filterList } = this.props.filters;
+        return (
+            <div>
+                {filterList.map((item, idx) => {
+                    const filterItem = item.strCategory;
+                    return <Checkbox
+                        key = {idx}
+                        isChecked={this.state.label.isChecked}
+                        name={filterItem}
+                        onClick={this.handleCheckboxChange}
+                    />;
+                })}
+            </div>
+        )
+    }
     render() {
-      return (
-        <div style={{ fontFamily: 'system-ui', 'width': '25%' }}>
-            <Checkbox
-                isChecked={this.state.label.isChecked}
-                name='Label'
-                onClick={this.handleCheckboxChange}
-            />
-            <Checkbox
-                isChecked={this.state.label2.isChecked}
-                name='Label2'
-                onClick={this.handleCheckboxChange}
-            />           
-        </div>
-      )
+        const { isFetching } = this.props.filters;
+        return (
+            <div style={{ fontFamily: 'system-ui', 'width': '25%' }}>
+                {isFetching  
+                    ? <p>Fetching Data</p>
+                    : this.renderFilters()
+                }      
+            </div>
+        )
     }
 }
 
-export default Filter;
+const mapStateToProps = state => {
+    return {
+        filters: state.filters,
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        getFilters: () => dispatch(getFilters()),
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Filter);
