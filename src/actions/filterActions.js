@@ -9,10 +9,11 @@ const filter = `https://www.thecocktaildb.com/api/json/v1/1/list.php?${key}={lis
 ?
 */
 export const GET_FILTERS_REQUEST = 'GET_FILTERS_REQUEST';
-export const GET_FILTERS_SUCCESS = 'GET_FILTERS_SUCCESS'
-export const GET_FILTERS_FAIL = 'GET_FILTERS_FAIL'
+export const GET_FILTERS_SUCCESS = 'GET_FILTERS_SUCCESS';
+export const GET_FILTERS_FAIL = 'GET_FILTERS_FAIL';
+//export const CHANGE_FILTERS = 'CHANGE_FILTERS';
 
-export function getFilters() {
+export const getFilters = () => {
     return function(dispatch) {
         dispatch({
             type: GET_FILTERS_REQUEST
@@ -20,8 +21,8 @@ export function getFilters() {
 
         axios.get(filterApiLink).then( r => {
             if(typeof r.data === 'object') {
-                const filters = r.data;
-
+                const filters = r.data.drinks.map(drink => drink.strCategory);
+                
                 dispatch({
                     type: GET_FILTERS_SUCCESS,
                     payload: filters,
@@ -32,5 +33,11 @@ export function getFilters() {
                 payload: new Error('Ошибка'),
             });
         }, 4)
+    }
+}
+
+export const handleFilterChange = drink => {
+    return function(dispatch) {
+        
     }
 }

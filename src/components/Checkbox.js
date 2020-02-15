@@ -47,7 +47,7 @@ const StyledCheckbox = styled.div`
   }
 `
 
-const Checkbox = ({ className, isChecked, ...props }) => (
+const Checkbox = ({ className, isChecked = true, ...props }) => (
   <Wrapper>
     <label>
         <CheckboxContainer className={className}>

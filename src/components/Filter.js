@@ -8,28 +8,34 @@ class Filter extends Component {
         super(props);
 
         this.state = { 
-            label: {isChecked: false},
-            label2: {isChecked: true} 
+            checkedItems: [],
         };
     }
 
     handleCheckboxChange = event => {
-        console.log(event.target);
+        const newArr = [...this.state.checkedItems];
+        if (newArr.includes(event.target.name)) {
+            this.setState({checkedItems: newArr.filter(drink => drink !== event.target.name)});
+        } else {
+            newArr.push(event.target.name);
+            this.setState({checkedItems: newArr});
+        }
     }
     
     componentDidMount() {
         this.props.getFilters();
     }
+
     renderFilters() {
         const { filterList } = this.props.filters;
+        const { checkedItems } = this.state;
         return (
             <div>
                 {filterList.map((item, idx) => {
-                    const filterItem = item.strCategory;
                     return <Checkbox
                         key = {idx}
-                        isChecked={this.state.label.isChecked}
-                        name={filterItem}
+                        isChecked={checkedItems.includes(item)}
+                        name={item}
                         onClick={this.handleCheckboxChange}
                     />;
                 })}
@@ -43,7 +49,8 @@ class Filter extends Component {
                 {isFetching  
                     ? <p>Fetching Data</p>
                     : this.renderFilters()
-                }      
+                }   
+                <div> Apply </div>   
             </div>
         )
     }
