@@ -1,4 +1,4 @@
-import { GET_FILTERS_FAIL, GET_FILTERS_SUCCESS, GET_FILTERS_REQUEST } from '../actions/filterActions';
+import { GET_FILTERS_FAIL, GET_FILTERS_SUCCESS, GET_FILTERS_REQUEST, CHECKBOX_CHANGE } from '../actions/filterActions';
 
 const initialState = {
     filterList: [],
@@ -22,6 +22,8 @@ export const filterReducer = (state = initialState, action) => {
         case GET_FILTERS_FAIL: 
             return {...state, isFetching: false, error: action.payload.message}
         
+        case CHECKBOX_CHANGE:
+            return {...state, checkedFiltersList: action.payload}
         default:
             return state;
     }

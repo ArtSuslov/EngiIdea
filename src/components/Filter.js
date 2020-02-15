@@ -1,40 +1,27 @@
 import React, { Component } from 'react';
 import Checkbox from './Checkbox';
 import { connect } from 'react-redux';
-import { getFilters } from '../actions/filterActions';
+import { getFilters, changeCheckbox } from '../actions/filterActions';
 
 class Filter extends Component {
-    constructor(props){
-        super(props);
-
-        this.state = { 
-            checkedItems: [],
-        };
-    }
-
     handleCheckboxChange = event => {
-        const newArr = [...this.state.checkedItems];
-        if (newArr.includes(event.target.name)) {
-            this.setState({checkedItems: newArr.filter(drink => drink !== event.target.name)});
-        } else {
-            newArr.push(event.target.name);
-            this.setState({checkedItems: newArr});
-        }
+        const { name: drink } = event.target;
+        const { checkedFiltersList } = this.props.filters;
+        this.props.changeCheckbox(drink, checkedFiltersList);
     }
-    
+        
     componentDidMount() {
         this.props.getFilters();
     }
 
     renderFilters() {
-        const { filterList } = this.props.filters;
-        const { checkedItems } = this.state;
+        const { filterList, checkedFiltersList } = this.props.filters;
         return (
             <div>
                 {filterList.map((item, idx) => {
                     return <Checkbox
                         key = {idx}
-                        isChecked={checkedItems.includes(item)}
+                        isChecked={checkedFiltersList.includes(item)}
                         name={item}
                         onClick={this.handleCheckboxChange}
                     />;
@@ -64,6 +51,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
+        changeCheckbox: (drink, checkboxList) => dispatch(changeCheckbox(drink, checkboxList)),
         getFilters: () => dispatch(getFilters()),
     }
 }

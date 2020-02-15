@@ -11,7 +11,7 @@ const filter = `https://www.thecocktaildb.com/api/json/v1/1/list.php?${key}={lis
 export const GET_FILTERS_REQUEST = 'GET_FILTERS_REQUEST';
 export const GET_FILTERS_SUCCESS = 'GET_FILTERS_SUCCESS';
 export const GET_FILTERS_FAIL = 'GET_FILTERS_FAIL';
-//export const CHANGE_FILTERS = 'CHANGE_FILTERS';
+export const CHECKBOX_CHANGE = 'CHECKBOX_CHANGE';
 
 export const getFilters = () => {
     return function(dispatch) {
@@ -36,8 +36,13 @@ export const getFilters = () => {
     }
 }
 
-export const handleFilterChange = drink => {
-    return function(dispatch) {
-        
+export const changeCheckbox = (drink, checkedList) => {
+    const newArr = checkedList.includes(drink)
+        ? checkedList.filter(listItem => listItem !== drink)
+        : [...checkedList, drink];
+
+    return {
+        type: CHECKBOX_CHANGE,
+        payload: newArr,
     }
 }
