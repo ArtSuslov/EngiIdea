@@ -4,16 +4,18 @@ import Category from './Category';
 import styled from 'styled-components';
 
 const Container = styled.div`
+    overflow-y: scroll;
+    height: 100vh;
     font-family: Roboto;
     flex-basis: 82%;
     padding-left: 2%;
     padding-right: 2%;
     @media (max-width: 1024px) {
         flex-basis: 76%;
-    }
+    };
     @media (max-width: 768px) {
         flex-basis: 69%;
-    }
+    };
 `
 
 class Content extends Component {
