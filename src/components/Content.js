@@ -12,13 +12,6 @@ const Container = styled.div`
     padding-right: 2%;
 
 `
-/*
-@media (max-width: 1024px) {
-    flex-basis: 76%;
-};
-@media (max-width: 768px) {
-    flex-basis: 69%;
-};*/
 class Content extends Component {
     renderContent () {
         const { categoriesList, isFetching } = this.props.content;
