@@ -2,9 +2,9 @@ import React from 'react'
 import styled from 'styled-components'
 
 const Wrapper = styled.div`
-
+  text-align: left;
+  margin-top: 1.5em;
 `
-
 
 const CheckboxContainer = styled.div`
   display: inline-block;
@@ -58,7 +58,7 @@ const Checkbox = ({ className, isChecked = true, ...props }) => (
             </Icon>
             </StyledCheckbox>
         </CheckboxContainer>
-        <span style={{ marginLeft: 8 }}>{props.name}</span>
+        <span style={{ marginLeft: 8, display: "inline" }}>{props.name}</span>
     </label>
   </Wrapper>
 )

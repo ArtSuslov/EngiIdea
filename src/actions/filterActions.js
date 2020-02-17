@@ -5,7 +5,7 @@ const filterApiLink = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=li
 or do I use: 
 const key = 'c';
 const value = 'list';
-const filter = `https://www.thecocktaildb.com/api/json/v1/1/list.php?${key}={list};`
+const filter = `https://www.thecocktaildb.com/api/json/v1/1/list.php?${key}={value};`
 ?
 */
 export const GET_FILTERS_REQUEST = 'GET_FILTERS_REQUEST';
@@ -20,7 +20,7 @@ export const getFilters = () => {
         });
 
         axios.get(filterApiLink).then( r => {
-            if(typeof r.data === 'object') {
+            if(typeof Array.isArray(r.data.drinks)) {
                 const filters = r.data.drinks.map(drink => drink.strCategory);
                 
                 dispatch({
