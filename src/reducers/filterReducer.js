@@ -16,7 +16,7 @@ export const filterReducer = (state = initialState, action) => {
             return {...state, 
                     isFetching: false, 
                     filterList: action.payload, 
-                    //checkedFiltersList: action.payload
+                    checkedFiltersList: action.payload
                 }
         
         case GET_FILTERS_FAIL: 
