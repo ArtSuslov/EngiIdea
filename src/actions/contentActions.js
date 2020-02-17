@@ -22,10 +22,7 @@ export const getDrinkByCategory = async name => {
         };
 }
 
-export const clearCategoriesList = () => ({ type: CLEAR_CATEGORIES_LIST });
-
 export const getDrinksByList =  drinksList => {
-    clearCategoriesList();
     return async dispatch => {
         dispatch({type: CLEAR_CATEGORIES_LIST});
         dispatch({type: GET_CONTENT_REQUEST});
